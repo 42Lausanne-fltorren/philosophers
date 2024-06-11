@@ -6,7 +6,7 @@
 /*   By: fltorren <fltorren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:10:21 by fltorren          #+#    #+#             */
-/*   Updated: 2024/05/30 18:10:22 by fltorren         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:47:13 by fltorren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,47 @@
 typedef struct s_philo
 {
 	pthread_t		thread;
+	int				id;
+
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				philos_count;
+	size_t			start_time;
 
 	size_t			last_meal;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
+	int				meal;
+	pthread_mutex_t	meal_lock;
+	int				*dead;
+	pthread_mutex_t	*dead_lock;
 
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-int	is_eating(t_philo *philo);
-int	is_sleeping(t_philo *philo);
-int	is_thinking(t_philo *philo);
-int can_eat(t_philo *philo);
-int	get_time(void);
-int take_fork(pthread_mutex_t *fork);
+typedef struct s_data
+{
+	int				n;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_eat;
+	int				dead;
+	pthread_mutex_t	dead_lock;
+	size_t			start_time;
+	t_philo			*philos;
+}	t_data;
+
+int		is_dead(t_philo *philo);
+t_philo	init_philo(int id, t_data *data, pthread_mutex_t *forks);
+void	free_philos(t_philo *philos, int n);
+
+size_t	get_time(void);
+void	ft_usleep(int time);
+int		ft_atoi(const char *str);
+void	print_status(t_philo *philo, char *status);
+
+void	*routine(void *philo);
+
+void	start_monitor(t_data *data, pthread_mutex_t *forks);
 #endif

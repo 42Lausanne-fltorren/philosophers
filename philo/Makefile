@@ -8,7 +8,7 @@ INCLUDES	= -Iincludes -Ilibft/includes -lreadline
 
 SRC_DIR		= src
 SRC			= main.c \
-			  utils.c routine.c
+			  utils.c routine.c philo.c monitor.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 
 all: $(NAME)
