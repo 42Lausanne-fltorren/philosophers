@@ -59,7 +59,7 @@ void	free_philos(t_philo *philos, int n);
 size_t	get_time(void);
 void	ft_usleep(int time);
 int		ft_atoi(const char *str);
-void	print_status(t_philo *philo, char *status);
+void	print_status(t_philo *philo, char *status, int check_death);
 
 void	*routine(void *philo);
 

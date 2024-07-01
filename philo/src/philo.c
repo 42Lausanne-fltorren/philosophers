@@ -23,7 +23,7 @@ int	is_dead(t_philo *philo)
 	if (get_time() - philo->last_meal >= (size_t) philo->time_to_die)
 	{
 		*philo->dead = 1;
-		print_status(philo, "died");
+		print_status(philo, "died", 0);
 		pthread_mutex_unlock(philo->dead_lock);
 		return (1);
 	}
@@ -44,6 +44,7 @@ t_philo	init_philo(int id, t_data *data, pthread_mutex_t *forks)
 	philo.meal = 0;
 	philo.dead_lock = &data->dead_lock;
 	philo.start_time = data->start_time;
+	philo.philos_count = data->n;
 	pthread_mutex_init(&philo.meal_lock, NULL);
 	philo.right_fork = &forks[id];
 	if ((int) id == 0)

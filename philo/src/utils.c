@@ -60,10 +60,12 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void	print_status(t_philo *philo, char *status)
+void	print_status(t_philo *philo, char *status, int check_death)
 {
 	size_t	time;
 
+	if (check_death && is_dead(philo))
+		return ;
 	time = get_time() - philo->start_time;
 	printf("%zu %d %s\n", time, (int) philo->id, status);
 }
