@@ -62,6 +62,7 @@ int	init_monitor(t_philo *philos, t_data *d, pthread_mutex_t *f, pthread_t *m)
 	int	i;
 
 	pthread_mutex_init(&d->dead_lock, NULL);
+	pthread_mutex_init(&d->print_lock, NULL);
 	d->dead = 0;
 	d->start_time = get_time();
 	d->philos = philos;
@@ -99,4 +100,5 @@ void	start_monitor(t_data *data, pthread_mutex_t *forks)
 	pthread_join(manager, NULL);
 	free_philos(philos, data->n);
 	pthread_mutex_destroy(&data->dead_lock);
+	pthread_mutex_destroy(&data->print_lock);
 }

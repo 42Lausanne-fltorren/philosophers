@@ -67,7 +67,9 @@ void	print_status(t_philo *philo, char *status, int check_death)
 	if (check_death && is_dead(philo))
 		return ;
 	time = get_time() - philo->start_time;
+	pthread_mutex_lock(philo->print_lock);
 	printf("%zu %d %s\n", time, (int) philo->id, status);
+	pthread_mutex_unlock(philo->print_lock);
 }
 
 void	free_philos(t_philo *philos, int n)

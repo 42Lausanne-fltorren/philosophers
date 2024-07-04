@@ -34,6 +34,7 @@ typedef struct s_philo
 	pthread_mutex_t	meal_lock;
 	int				*dead;
 	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*print_lock;
 
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -48,6 +49,7 @@ typedef struct s_data
 	int				must_eat;
 	int				dead;
 	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	print_lock;
 	size_t			start_time;
 	t_philo			*philos;
 }	t_data;

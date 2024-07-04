@@ -43,6 +43,7 @@ t_philo	init_philo(int id, t_data *data, pthread_mutex_t *forks)
 	philo.dead = &data->dead;
 	philo.meal = 0;
 	philo.dead_lock = &data->dead_lock;
+	philo.print_lock = &data->print_lock;
 	philo.start_time = data->start_time;
 	philo.philos_count = data->n;
 	pthread_mutex_init(&philo.meal_lock, NULL);
