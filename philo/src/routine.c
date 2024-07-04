@@ -32,7 +32,6 @@ static void	ft_eat(t_philo *philo)
 	print_status(philo, "is eating", 1);
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal = get_time();
-	philo->meal++;
 	pthread_mutex_unlock(&philo->meal_lock);
 	ft_usleep((int) philo->time_to_eat);
 	print_status(philo, "is done eating", 1);
@@ -63,6 +62,9 @@ void	*routine(void *ptr)
 		if (is_dead(philo))
 			break ;
 		ft_eat(philo);
+		pthread_mutex_lock(&philo->meal_lock);
+		philo->meal++;
+		pthread_mutex_unlock(&philo->meal_lock);
 		if (is_dead(philo))
 			break ;
 		ft_sleep(philo);

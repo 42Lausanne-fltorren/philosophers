@@ -37,14 +37,17 @@ int	check_meals(t_data *data)
 	while (++i < data->n)
 	{
 		pthread_mutex_lock(&data->philos[i].meal_lock);
-		if (data->philos[i].meal > data->must_eat && data->must_eat != -1)
+		if (data->philos[i].meal < data->must_eat || data->must_eat == -1)
 		{
 			pthread_mutex_unlock(&data->philos[i].meal_lock);
-			return (1);
+			return (0);
 		}
 		pthread_mutex_unlock(&data->philos[i].meal_lock);
 	}
-	return (0);
+	pthread_mutex_lock(data->philos[0].dead_lock);
+	*data->philos[0].dead = 1;
+	pthread_mutex_unlock(data->philos[0].dead_lock);
+	return (1);
 }
 
 void	*monitor(void *pointer)
